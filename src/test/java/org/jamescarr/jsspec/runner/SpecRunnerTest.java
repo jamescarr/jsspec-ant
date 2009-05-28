@@ -1,4 +1,4 @@
-package org.jamescarr.jsspec.runner.webdriver;
+package org.jamescarr.jsspec.runner;
 
 import static org.jamescarr.jsspec.runner.helpers.JsSpecHelpers.using;
 import static org.junit.Assert.assertFalse;
@@ -8,6 +8,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.jamescarr.jsspec.runner.webdriver.JSSpecResult;
+import org.jamescarr.jsspec.runner.webdriver.ResultExtractor;
+import org.jamescarr.jsspec.runner.webdriver.SpecRunner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

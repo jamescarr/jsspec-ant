@@ -1,4 +1,4 @@
-package org.jamescarr.jsspec.runner.webdriver;
+package org.jamescarr.jsspec.runner;
 
 import static org.jamescarr.jsspec.runner.helpers.JsSpecHelpers.*;
 import static org.junit.Assert.assertEquals;
@@ -6,6 +6,9 @@ import static org.mockito.Mockito.*;
 
 import java.util.List;
 
+import org.jamescarr.jsspec.runner.webdriver.ExampleGroupBuilder;
+import org.jamescarr.jsspec.runner.webdriver.JSSpecResult;
+import org.jamescarr.jsspec.runner.webdriver.TotalMetricBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;

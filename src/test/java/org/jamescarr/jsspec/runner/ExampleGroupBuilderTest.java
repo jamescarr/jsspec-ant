@@ -1,4 +1,4 @@
-package org.jamescarr.jsspec.runner.webdriver;
+package org.jamescarr.jsspec.runner;
 
 import static org.jamescarr.jsspec.runner.helpers.JsSpecHelpers.using;
 import static org.jamescarr.jsspec.runner.helpers.JsSpecHelpers.webElements;
@@ -11,6 +11,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import org.jamescarr.jsspec.runner.webdriver.ExampleGroup;
+import org.jamescarr.jsspec.runner.webdriver.ExampleGroupBuilder;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;

@@ -1,5 +1,6 @@
-package org.jamescarr.jsspec.runner.webdriver;
+package org.jamescarr.jsspec.runner;
 
+import org.jamescarr.jsspec.runner.webdriver.Example;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

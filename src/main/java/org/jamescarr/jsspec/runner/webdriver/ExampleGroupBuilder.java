@@ -1,5 +1,6 @@
 package org.jamescarr.jsspec.runner.webdriver;
 
+import org.jamescarr.jsspec.runner.ExampleBuilder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
