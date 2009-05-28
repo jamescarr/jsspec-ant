@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="ko" xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JSSpec results</title>
+<link rel="stylesheet" type="text/css" href="demo_files/JSSpec.css">
+<script type="text/javascript" src="demo_files/diff_match_patch.js"></script>
+<script type="text/javascript" src="demo_files/JSSpec.js"></script>
+<script type="text/javascript">// <![CDATA[
+describe('Plus operator (just for example)', {
+	'should concatenate two strings': function() {
+		expect("Hello " + "World").should_be("Hello World");
+	},
+	'should add two numbers': function() {
+		expect(1 + 2).should_be(3);
+	}
+})
+
+describe('"Should match"s', {
+	'Should match': function() {
+		expect("Hello").should_match(/ell/);
+	},
+	'Should match 1': function() {
+		expect("Hello").should_match(/x/);
+	},
+	'Should match 2': function() {
+		expect([1,2,3]).should_match(/x/);
+	},
+	'Should not match 1': function() {
+		expect("Hello").should_not_match(/ell/);
+	},
+	'Should not match 2': function() {
+		expect([1,2,3]).should_not_match(/x/);
+	}
+})
+describe('"Should include"s', {
+	'Should include': function() {
+		expect([1,2,3]).should_include(4);
+	},
+	'Should not include': function() {
+		expect([1,2,3]).should_not_include(2);
+	},
+	'Should include / Non-array object': function() {
+		expect(new Date()).should_include(4);
+	},
+	'Should not include / Non-array object': function() {
+		expect(new Date()).should_not_include(4);
+	}
+})
+
+describe('"Should have"s', {
+	'String length': function() {
+		expect("Hello").should_have(4, "characters");
+	},
+	'Array length': function() {
+		expect([1,2,3]).should_have(4, "items");
+	},
+	'Object\'s item length': function() {
+		expect({name:'Alan Kang', email:'jania902@gmail.com', accounts:['A', 'B']}).should_have(3, "accounts");
+	},
+	'No match': function() {
+		expect("This is a string").should_have(5, "players");
+	},
+	'Exactly': function() {
+		expect([1,2,3]).should_have_exactly(2, "items");
+	},
+	'At least': function() {
+		expect([1,2,3]).should_have_at_least(4, "items");
+	},
+	'At most': function() {
+		expect([1,2,3]).should_have_at_most(2, "items");
+	}
+})
+describe('"Should be empty"s', {
+	'String': function() {
+		expect("Hello").should_be_empty();
+	},
+	'Array': function() {
+		expect([1,2,3]).should_be_empty();
+	},
+	'Object\'s item': function() {
+		expect({name:'Alan Kang', email:'jania902@gmail.com', accounts:['A', 'B']}).should_have(0, "accounts");
+	}
+})
+
+describe('Failure messages', {
+	'Should be (String)': function() {
+		expect("Hello World").should_be("Good-bye world");
+	},
+	'Should have (Object\s item)': function() {
+		expect({name:'Alan Kang', email:'jania902@gmail.com', accounts:['A', 'B']}).should_have(3, "accounts");
+	},
+	'Should have at least': function() {
+		expect([1,2,3]).should_have_at_least(4, "items");
+	},
+	'Should include': function() {
+		expect([1,2,3]).should_include(4);
+	},
+	'Should match': function() {
+		expect("Hello").should_match(/bye/);
+	}
+})
+
+describe('"Should be"s', {
+	'String mismatch': function() {
+		expect("Hello world").should_be("Good-bye world");
+	},
+	'Array item mismatch': function() {
+		expect(['ab','cd','ef']).should_be(['ab','bd','ef']);
+	},
+	'Array length mismatch': function() {
+		expect(['a',2,'4',5]).should_be([1,2,[4,5,6],6,7]);
+	},
+	'Undefined value': function() {
+		expect("Test").should_be(undefined);
+	},
+	'Null value': function() {
+		expect(null).should_be("Test");
+	},
+	'Boolean value 1': function() {
+		expect(true).should_be(false);
+	},
+	'Boolean value 2': function() {
+		expect(false).should_be_true();
+	},
+	'Boolean value 3': function() {
+		expect(true).should_be_false();
+	},
+	'Number mismatch': function() {
+		expect(1+2).should_be(4);
+	},
+	'Date mismatch': function() {
+		expect(new Date(1979, 3, 27)).should_be(new Date(1976, 7, 23));
+	},
+	'Object mismatch 1': function() {
+		var actual = {a:1, b:2};
+		var expected = {a:1, b:2, d:3};
+		
+		expect(actual).should_be(expected);
+	},
+	'Object mismatch 2': function() {
+		var actual = {a:1, b:2, c:3, d:4};
+		var expected = {a:1, b:2, c:3};
+		
+		expect(actual).should_be(expected);
+	},
+	'Object mismatch 3': function() {
+		var actual = {a:1, b:4, c:3};
+		var expected = {a:1, b:2, c:3};
+		
+		expect(actual).should_be(expected);
+	},
+	'null should be null': function() {
+		expect(null).should_be(null);
+	},
+	'null should not be undefined': function() {
+		expect(null).should_be(undefined);
+	},
+	'null should not be null': function() {
+		expect(null).should_not_be(null);
+	},
+	'empty array 1': function() {
+		expect([]).should_be_empty();
+		expect([1]).should_be_empty();
+	},
+	'empty array 2': function() {
+		expect([1]).should_not_be_empty();
+		expect([]).should_not_be_empty();
+	}
+})
+
+describe('Equality operator', {
+	'should work for different Date instances which have same value': function() {
+		var date1 = new Date(1979, 03, 27);
+		var date2 = new Date(1979, 03, 27);
+		expect(date1).should_be(date2);
+	}
+})
+// ]]></script>
+</head><body><div style="display: none;"><p>A</p><p>B</p></div><div id="jsspec_container"><div class="exception" id="title"><h1>JSSpec runner</h1><ul>	<li><span id="total_examples">45</span> examples</li>	<li><span id="total_failures">40</span> failures</li>	<li><span id="total_errors">0</span> errors</li>	<li><span id="progress">100</span>% done</li>	<li><span id="total_elapsed">3.297</span> secs</li></ul><p><a href="http://jania.pe.kr/aw/moin.cgi/JSSpec">JSSpec homepage</a></p></div><div id="list"><h2>List</h2><ul class="specs"><li class="success" id="spec_0_list"><h3><a href="#spec_0">Plus operator (just for example)</a> [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=Plus%20operator%20%28just%20for%20example%29">rerun</a>]</h3></li><li class="exception" id="spec_1_list"><h3><a href="#spec_1">"Should match"s</a> [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=%22Should%20match%22s">rerun</a>]</h3></li><li class="exception" id="spec_2_list"><h3><a href="#spec_2">"Should include"s</a> [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=%22Should%20include%22s">rerun</a>]</h3></li><li class="exception" id="spec_3_list"><h3><a href="#spec_3">"Should have"s</a> [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=%22Should%20have%22s">rerun</a>]</h3></li><li class="exception" id="spec_4_list"><h3><a href="#spec_4">"Should be empty"s</a> [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=%22Should%20be%20empty%22s">rerun</a>]</h3></li><li class="exception" id="spec_5_list"><h3><a href="#spec_5">Failure messages</a> [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=Failure%20messages">rerun</a>]</h3></li><li class="exception" id="spec_6_list"><h3><a href="#spec_6">"Should be"s</a> [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=%22Should%20be%22s">rerun</a>]</h3></li><li class="success" id="spec_7_list"><h3><a href="#spec_7">Equality operator</a> [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=Equality%20operator">rerun</a>]</h3></li></ul></div><div id="log"><h2>Log</h2><ul class="specs">	<li class="success" id="spec_0">		<h3>Plus operator (just for example) [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=Plus%20operator%20%28just%20for%20example%29">rerun</a>]</h3>		<ul style="display: none;" id="spec_0_examples" class="examples">			<li class="success" id="example_0">				<h4>should concatenate two strings</h4>			</li>			<li class="success" id="example_1">				<h4>should add two numbers</h4>			</li>		</ul>	</li>	<li class="exception" id="spec_1">		<h3>"Should match"s [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=%22Should%20match%22s">rerun</a>]</h3>		<ul id="spec_1_examples" class="examples">			<li class="success" id="example_2">				<h4>Should match</h4>			</li>			<li class="exception" id="example_3">				<h4>Should match 1</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="string_value">"Hello"</span></p><p>should  match with pattern:</p><p style="margin-left: 2em;"><span class="regexp_value">/x/</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 24</p></div></li>			<li class="exception" id="example_4">				<h4>Should match 2</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <span class="number_value">2</span>, <span class="number_value">3</span>]</span></p><p>should  match with pattern:</p><p style="margin-left: 2em;"><span class="regexp_value">/x/</span></p><p>but pattern matching cannot be performed.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 27</p></div></li>			<li class="exception" id="example_5">				<h4>Should not match 1</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="string_value">"Hello"</span></p><p>should not match with pattern:</p><p style="margin-left: 2em;"><span class="regexp_value">/ell/</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 30</p></div></li>			<li class="exception" id="example_6">				<h4>Should not match 2</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <span class="number_value">2</span>, <span class="number_value">3</span>]</span></p><p>should not match with pattern:</p><p style="margin-left: 2em;"><span class="regexp_value">/x/</span></p><p>but pattern matching cannot be performed.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 33</p></div></li>		</ul>	</li>	<li class="exception" id="spec_2">		<h3>"Should include"s [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=%22Should%20include%22s">rerun</a>]</h3>		<ul id="spec_2_examples" class="examples">			<li class="exception" id="example_7">				<h4>Should include</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <span class="number_value">2</span>, <span class="number_value">3</span>]</span></p><p>should  include:</p><p style="margin-left: 2em;"><span class="number_value">4</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 38</p></div></li>			<li class="exception" id="example_8">				<h4>Should not include</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <strong><span class="number_value">2</span></strong>, <span class="number_value">3</span>]</span></p><p>should not include:</p><p style="margin-left: 2em;"><span class="number_value">2</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 41</p></div></li>			<li class="exception" id="example_9">				<h4>Should include / Non-array object</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="date_value">"Wed May 27 2009 17:39:12 GMT-0500 (CST)"</span></p><p>should  include:</p><p style="margin-left: 2em;"><span class="number_value">4</span></p><p>but since its not an array, include or not doesn't make any sense.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 44</p></div></li>			<li class="exception" id="example_10">				<h4>Should not include / Non-array object</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="date_value">"Wed May 27 2009 17:39:12 GMT-0500 (CST)"</span></p><p>should not include:</p><p style="margin-left: 2em;"><span class="number_value">4</span></p><p>but since its not an array, include or not doesn't make any sense.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 47</p></div></li>		</ul>	</li>	<li class="exception" id="spec_3">		<h3>"Should have"s [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=%22Should%20have%22s">rerun</a>]</h3>		<ul id="spec_3_examples" class="examples">			<li class="exception" id="example_11">				<h4>String length</h4>			<div><p>actual value has <strong>5 characters</strong>:</p><p style="margin-left: 2em;"><span class="string_value">"Hello"</span></p><p>but it should have <strong>exactly 4 characters</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 53</p></div></li>			<li class="exception" id="example_12">				<h4>Array length</h4>			<div><p>actual value has <strong>3 items</strong>:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <span class="number_value">2</span>, <span class="number_value">3</span>]</span></p><p>but it should have <strong>exactly 4 items</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 56</p></div></li>			<li class="exception" id="example_13">				<h4>Object's item length</h4>			<div><p>actual value has <strong>2 accounts</strong>:</p><p style="margin-left: 2em;"><span class="object_value">{<span class="string_value">"name"</span>:<span class="string_value">"Alan Kang"</span>, <span class="string_value">"email"</span>:<span class="string_value">"jania902@gmail.com"</span>, <strong><span class="string_value">"accounts"</span>:<span class="array_value">[<span class="string_value">"A"</span>, <span class="string_value">"B"</span>]</span></strong>}</span></p><p>but it should have <strong>exactly 3 accounts.</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 59</p></div></li>			<li class="exception" id="example_14">				<h4>No match</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="string_value">"This is a string"</span></p><p>should have <strong>exactly 5 players</strong> but there's no such property.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 62</p></div></li>			<li class="exception" id="example_15">				<h4>Exactly</h4>			<div><p>actual value has <strong>3 items</strong>:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <span class="number_value">2</span>, <span class="number_value">3</span>]</span></p><p>but it should have <strong>exactly 2 items</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 65</p></div></li>			<li class="exception" id="example_16">				<h4>At least</h4>			<div><p>actual value has <strong>3 items</strong>:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <span class="number_value">2</span>, <span class="number_value">3</span>]</span></p><p>but it should have <strong>at least 4 items</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 68</p></div></li>			<li class="exception" id="example_17">				<h4>At most</h4>			<div><p>actual value has <strong>3 items</strong>:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <span class="number_value">2</span>, <span class="number_value">3</span>]</span></p><p>but it should have <strong>at most 2 items</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 71</p></div></li>		</ul>	</li>	<li class="exception" id="spec_4">		<h3>"Should be empty"s [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=%22Should%20be%20empty%22s">rerun</a>]</h3>		<ul id="spec_4_examples" class="examples">			<li class="exception" id="example_18">				<h4>String</h4>			<div><p>actual value has <strong>5 characters</strong>:</p><p style="margin-left: 2em;"><span class="string_value">"Hello"</span></p><p>but it should be an <strong>empty string</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 76</p></div></li>			<li class="exception" id="example_19">				<h4>Array</h4>			<div><p>actual value has <strong>3 items</strong>:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <span class="number_value">2</span>, <span class="number_value">3</span>]</span></p><p>but it should be an <strong>empty array</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 79</p></div></li>			<li class="exception" id="example_20">				<h4>Object's item</h4>			<div><p>actual value has <strong>2 accounts</strong>:</p><p style="margin-left: 2em;"><span class="object_value">{<span class="string_value">"name"</span>:<span class="string_value">"Alan Kang"</span>, <span class="string_value">"email"</span>:<span class="string_value">"jania902@gmail.com"</span>, <strong><span class="string_value">"accounts"</span>:<span class="array_value">[<span class="string_value">"A"</span>, <span class="string_value">"B"</span>]</span></strong>}</span></p><p>but it should be <strong>empty</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 82</p></div></li>		</ul>	</li>	<li class="exception" id="spec_5">		<h3>Failure messages [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=Failure%20messages">rerun</a>]</h3>		<ul id="spec_5_examples" class="examples">			<li class="exception" id="example_21">				<h4>Should be (String)</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="string_value">"Hello World"</span></p><p>should be:</p><p style="margin-left: 2em;"><span class="string_value">"Good-bye world"</span></p><p>diff:</p><p style="margin-left: 2em;"><span class="string_value">"<del style="background: rgb(255, 230, 230) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" title="i=0">Good-bye w</del><ins style="background: rgb(230, 255, 230) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" title="i=0">Hello W</ins><span title="i=7">orld</span>"</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 88</p></div></li>			<li class="exception" id="example_22">				<h4>Should have (Objects item)</h4>			<div><p>actual value has <strong>2 accounts</strong>:</p><p style="margin-left: 2em;"><span class="object_value">{<span class="string_value">"name"</span>:<span class="string_value">"Alan Kang"</span>, <span class="string_value">"email"</span>:<span class="string_value">"jania902@gmail.com"</span>, <strong><span class="string_value">"accounts"</span>:<span class="array_value">[<span class="string_value">"A"</span>, <span class="string_value">"B"</span>]</span></strong>}</span></p><p>but it should have <strong>exactly 3 accounts.</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 91</p></div></li>			<li class="exception" id="example_23">				<h4>Should have at least</h4>			<div><p>actual value has <strong>3 items</strong>:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <span class="number_value">2</span>, <span class="number_value">3</span>]</span></p><p>but it should have <strong>at least 4 items</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 94</p></div></li>			<li class="exception" id="example_24">				<h4>Should include</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <span class="number_value">2</span>, <span class="number_value">3</span>]</span></p><p>should  include:</p><p style="margin-left: 2em;"><span class="number_value">4</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 97</p></div></li>			<li class="exception" id="example_25">				<h4>Should match</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="string_value">"Hello"</span></p><p>should  match with pattern:</p><p style="margin-left: 2em;"><span class="regexp_value">/bye/</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 100</p></div></li>		</ul>	</li>	<li class="exception" id="spec_6">		<h3>"Should be"s [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=%22Should%20be%22s">rerun</a>]</h3>		<ul id="spec_6_examples" class="examples">			<li class="exception" id="example_26">				<h4>String mismatch</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="string_value">"Hello world"</span></p><p>should be:</p><p style="margin-left: 2em;"><span class="string_value">"Good-bye world"</span></p><p>diff:</p><p style="margin-left: 2em;"><span class="string_value">"<del style="background: rgb(255, 230, 230) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" title="i=0">Good-bye</del><ins style="background: rgb(230, 255, 230) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" title="i=0">Hello</ins><span title="i=5"> world</span>"</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 106</p></div></li>			<li class="exception" id="example_27">				<h4>Array item mismatch</h4>			<div><p>2nd item (index 1) of actual value is <strong><span class="string_value">"cd"</span></strong>:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="string_value">"ab"</span>, <strong><span class="string_value">"cd"</span></strong>, <span class="string_value">"ef"</span>]</span></p><p>but it should be <strong><span class="string_value">"bd"</span></strong>:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="string_value">"ab"</span>, <strong><span class="string_value">"bd"</span></strong>, <span class="string_value">"ef"</span>]</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 109</p></div></li>			<li class="exception" id="example_28">				<h4>Array length mismatch</h4>			<div><p>actual value has <strong>4</strong> items</p><p style="margin-left: 2em;"><span class="array_value">[<span class="string_value">"a"</span>, <span class="number_value">2</span>, <span class="string_value">"4"</span>, <span class="number_value">5</span>]</span></p><p>but it should be <strong>5</strong></p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>, <span class="number_value">2</span>, <span class="array_value">[<span class="number_value">4</span>, <span class="number_value">5</span>, <span class="number_value">6</span>]</span>, <span class="number_value">6</span>, <span class="number_value">7</span>]</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 112</p></div></li>			<li class="exception" id="example_29">				<h4>Undefined value</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="string_value">"Test"</span></p><p>should be:</p><p style="margin-left: 2em;"><span class="undefined_value">undefined</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 115</p></div></li>			<li class="exception" id="example_30">				<h4>Null value</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="null_value">null</span></p><p>should be:</p><p style="margin-left: 2em;"><span class="string_value">"Test"</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 118</p></div></li>			<li class="exception" id="example_31">				<h4>Boolean value 1</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="boolean_value">true</span></p><p>should be:</p><p style="margin-left: 2em;"><span class="boolean_value">false</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 121</p></div></li>			<li class="exception" id="example_32">				<h4>Boolean value 2</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="boolean_value">false</span></p><p>should be:</p><p style="margin-left: 2em;"><span class="boolean_value">true</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 124</p></div></li>			<li class="exception" id="example_33">				<h4>Boolean value 3</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="boolean_value">true</span></p><p>should be:</p><p style="margin-left: 2em;"><span class="boolean_value">false</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 127</p></div></li>			<li class="exception" id="example_34">				<h4>Number mismatch</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="number_value">3</span></p><p>should be:</p><p style="margin-left: 2em;"><span class="number_value">4</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 130</p></div></li>			<li class="exception" id="example_35">				<h4>Date mismatch</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="date_value">"Fri Apr 27 1979 00:00:00 GMT-0500 (EST)"</span></p><p>should be:</p><p style="margin-left: 2em;"><span class="date_value">"Mon Aug 23 1976 00:00:00 GMT-0500 (EST)"</span></p><p>diff:</p><p style="margin-left: 2em;"><span class="string_value">"<del style="background: rgb(255, 230, 230) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" title="i=0">Mon Aug 23</del><ins style="background: rgb(230, 255, 230) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" title="i=0">Fri Apr 27</ins><span title="i=10"> 197</span><del style="background: rgb(255, 230, 230) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" title="i=14">6</del><ins style="background: rgb(230, 255, 230) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;" title="i=14">9</ins><span title="i=15"> 00:00:00 GMT-0500 (EST)</span>"</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 133</p></div></li>			<li class="exception" id="example_36">				<h4>Object mismatch 1</h4>			<div><p>actual value has no item named <strong><span class="string_value">"d"</span></strong></p><p style="margin-left: 2em;"><span class="object_value">{<span class="string_value">"a"</span>:<span class="number_value">1</span>, <span class="string_value">"b"</span>:<span class="number_value">2</span>}</span></p><p>but it should have the item whose value is <strong><span class="number_value">3</span></strong></p><p style="margin-left: 2em;"><span class="object_value">{<span class="string_value">"a"</span>:<span class="number_value">1</span>, <span class="string_value">"b"</span>:<span class="number_value">2</span>, <strong><span class="string_value">"d"</span>:<span class="number_value">3</span></strong>}</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 139</p></div></li>			<li class="exception" id="example_37">				<h4>Object mismatch 2</h4>			<div><p>actual value has item named <strong><span class="string_value">"d"</span></strong></p><p style="margin-left: 2em;"><span class="object_value">{<span class="string_value">"a"</span>:<span class="number_value">1</span>, <span class="string_value">"b"</span>:<span class="number_value">2</span>, <span class="string_value">"c"</span>:<span class="number_value">3</span>, <strong><span class="string_value">"d"</span>:<span class="number_value">4</span></strong>}</span></p><p>but there should be no such item</p><p style="margin-left: 2em;"><span class="object_value">{<span class="string_value">"a"</span>:<span class="number_value">1</span>, <span class="string_value">"b"</span>:<span class="number_value">2</span>, <span class="string_value">"c"</span>:<span class="number_value">3</span>}</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 145</p></div></li>			<li class="exception" id="example_38">				<h4>Object mismatch 3</h4>			<div><p>actual value has an item named <strong><span class="string_value">"b"</span></strong> whose value is <strong><span class="number_value">4</span></strong></p><p style="margin-left: 2em;"><span class="object_value">{<span class="string_value">"a"</span>:<span class="number_value">1</span>, <strong><span class="string_value">"b"</span>:<span class="number_value">4</span></strong>, <span class="string_value">"c"</span>:<span class="number_value">3</span>}</span></p><p>but it's value should be <strong><span class="number_value">2</span></strong></p><p style="margin-left: 2em;"><span class="object_value">{<span class="string_value">"a"</span>:<span class="number_value">1</span>, <strong><span class="string_value">"b"</span>:<span class="number_value">2</span></strong>, <span class="string_value">"c"</span>:<span class="number_value">3</span>}</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 151</p></div></li>			<li class="success" id="example_39">				<h4>null should be null</h4>			</li>			<li class="exception" id="example_40">				<h4>null should not be undefined</h4>			<div><p>actual value:</p><p style="margin-left: 2em;"><span class="null_value">null</span></p><p>should be:</p><p style="margin-left: 2em;"><span class="undefined_value">undefined</span></p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 157</p></div></li>			<li class="exception" id="example_41">				<h4>null should not be null</h4>			<div>'null' should not be 'null'<p><br> at http://jania.pe.kr/jsspec/demo.html, line 160</p></div></li>			<li class="exception" id="example_42">				<h4>empty array 1</h4>			<div><p>actual value has <strong>1 items</strong>:</p><p style="margin-left: 2em;"><span class="array_value">[<span class="number_value">1</span>]</span></p><p>but it should be an <strong>empty array</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 163</p></div></li>			<li class="exception" id="example_43">				<h4>empty array 2</h4>			<div><p>actual value has <strong>0 items</strong>:</p><p style="margin-left: 2em;"><span class="array_value">[]</span></p><p>but it should have <strong>at least 1 items</strong>.</p><p><br> at http://jania.pe.kr/jsspec/demo.html, line 167</p></div></li>		</ul>	</li>	<li class="success" id="spec_7">		<h3>Equality operator [<a href="http://jania.pe.kr/jsspec/demo.html?rerun=Equality%20operator">rerun</a>]</h3>		<ul style="display: none;" id="spec_7_examples" class="examples">			<li class="success" id="example_44">				<h4>should work for different Date instances which have same value</h4>			</li>		</ul>	</li></ul></div></div></body></html>
