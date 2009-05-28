@@ -25,11 +25,10 @@ public class SpecRunnerTest {
 		Navigation nav = mock(Navigation.class);
 		when(driver.navigate()).thenReturn(nav);
 		
-		runner = new SpecRunner(driver);
+		extractor = mock(ResultExtractor.class);
+		runner = new SpecRunner(driver, extractor);
 		using(driver).id("progress").returnsText("100");
 		
-		extractor = mock(ResultExtractor.class);
-		runner.setMetricExtractor(extractor);
 	}
 	@After
 	public void after(){

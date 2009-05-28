@@ -5,6 +5,10 @@ import org.openqa.selenium.WebElement;
 
 public class ExampleGroupBuilder {
 
+	public ExampleGroupBuilder(ExampleBuilder exampleBuilder) {
+		this.exampleBuilder = exampleBuilder;
+	}
+
 	private ExampleBuilder exampleBuilder;
 
 	public ExampleGroup generate(WebElement el) {
@@ -16,11 +20,6 @@ public class ExampleGroupBuilder {
 			group.add(exampleBuilder.generate(example));
 		}
 		return group;
-	}
-
-	public void setExampleBuilder(ExampleBuilder exampleBuilder) {
-		this.exampleBuilder = exampleBuilder;
-		
 	}
 
 }

@@ -21,6 +21,10 @@ public class TotalMetricBuilder implements ResultExtractor<JSSpecResult> {
 	
 	private final ExampleGroupBuilder groupBuilder;
 	
+	public TotalMetricBuilder() {
+		this.groupBuilder = new ExampleGroupBuilder(new ExampleBuilder());
+		
+	}
 	public TotalMetricBuilder(ExampleGroupBuilder groupBuilder) {
 		this.groupBuilder = groupBuilder;
 		

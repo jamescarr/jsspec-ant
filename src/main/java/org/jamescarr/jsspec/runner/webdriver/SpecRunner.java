@@ -10,7 +10,11 @@ public class SpecRunner {
 	private ResultExtractor<JSSpecResult> extractor;
 
 	public SpecRunner(WebDriver driver) {
+		this(driver, new TotalMetricBuilder());
+	}
+	public SpecRunner(WebDriver driver, ResultExtractor<JSSpecResult> extractor) {
 		this.driver = driver;
+		this.extractor = extractor;
 	}
 
 	public JSSpecResult execute(String specName) {
@@ -33,10 +37,5 @@ public class SpecRunner {
 
 	public boolean isRunning() {
 		return running;
-	}
-
-	public void setMetricExtractor(ResultExtractor<JSSpecResult> extractor) {
-		this.extractor = extractor;
-		
 	}
 }

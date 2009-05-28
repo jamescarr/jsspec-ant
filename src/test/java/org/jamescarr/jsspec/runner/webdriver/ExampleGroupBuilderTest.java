@@ -18,7 +18,7 @@ import org.openqa.selenium.WebElement;
 
 public class ExampleGroupBuilderTest {
 	private WebElement el;
-	private ExampleGroupBuilder builder = new ExampleGroupBuilder();
+	private ExampleGroupBuilder builder;
 	private ExampleBuilder exampleBuilder;
 	@Before
 	public void before(){
@@ -28,7 +28,7 @@ public class ExampleGroupBuilderTest {
 		
 		
 		exampleBuilder = mock(ExampleBuilder.class);
-		builder.setExampleBuilder(exampleBuilder);
+		builder = new ExampleGroupBuilder(exampleBuilder);
 	}
 
 	@Test
