@@ -32,5 +32,7 @@ public class ExampleGroupBuilderTest {
 		using(el).tag("h3").returnsText("Example Group Description");
 		
 		ExampleGroup group = new ExampleGroupBuilder().generate(el);
+		
+		assertEquals("Example Group Description",group.getTitle());
 	}
 }
