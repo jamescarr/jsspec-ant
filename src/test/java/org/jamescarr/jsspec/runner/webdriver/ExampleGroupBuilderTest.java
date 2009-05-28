@@ -1,31 +1,34 @@
 package org.jamescarr.jsspec.runner.webdriver;
 
-import org.junit.Test;
+import static org.jamescarr.jsspec.runner.helpers.JsSpecHelpers.using;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriver.Navigation;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import static org.jamescarr.jsspec.runner.helpers.JsSpecHelpers.*;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class ExampleGroupBuilderTest {
 	private WebElement el;
 	private ExampleGroupBuilder builder = new ExampleGroupBuilder();
+	private ExampleBuilder exampleBuilder;
 	@Before
 	public void before(){
 		this.el = mock(WebElement.class);
 		using(el).tag("h3").returnsText("default");
 		when(el.getAttribute("class")).thenReturn("exception");
+		
+		
+		exampleBuilder = mock(ExampleBuilder.class);
+		builder.setExampleBuilder(exampleBuilder);
 	}
 
 	@Test
@@ -53,5 +56,42 @@ public class ExampleGroupBuilderTest {
 		ExampleGroup group = builder.generate(el);
 		
 		assertFalse(group.isPassing());
+	}
+	
+	@Test
+	public void shouldUseExampleBuilderToBuildEachExample(){
+		List<WebElement> elements = createListOfExampleNodes(3);
+		
+		builder.generate(el);
+		
+		for(WebElement element:elements){
+			verify(exampleBuilder).generate(element);
+		}
+	}
+
+	private List<WebElement> createListOfExampleNodes(int numberOfElements) {
+		List<WebElement> elements = webElements("li", "success", numberOfElements);
+		when(el.findElements(By.xpath("ul[@class='examples']/li"))).thenReturn(elements);
+		return elements;
+	}
+	
+	@Test
+	public void shouldHaveNumberOfExamplesCorrespondingToExampleNodes(){
+		List<WebElement> elements = createListOfExampleNodes(5);
+		
+		ExampleGroup group = builder.generate(el);
+		
+		assertEquals(5, group.getExamples().size());
+	}
+
+	private List<WebElement> webElements(String nodeName, String clazz, int numberToCreate) {
+		ArrayList<WebElement> elements = new ArrayList<WebElement>();
+		for(int i = 0; i < numberToCreate; i++){
+			WebElement el = mock(WebElement.class);
+			when(el.getAttribute("class")).thenReturn(clazz);
+			when(el.getElementName()).thenReturn(nodeName);
+			elements.add(el);
+		}
+		return elements;
 	}
 }
