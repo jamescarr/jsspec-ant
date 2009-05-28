@@ -3,7 +3,7 @@ package org.jamescarr.jsspec.runner.webdriver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Description {
+public class ExampleGroup {
 	private String title;
 	private List<Example> examples = new ArrayList<Example>();
 	
