@@ -35,4 +35,9 @@ public class ExampleGroupBuilderTest {
 		
 		assertEquals("Example Group Description",group.getTitle());
 	}
+	
+	@Test
+	public void shouldSetGroupPassToTrueIfClassIsSuccess(){
+		
+	}
 }
