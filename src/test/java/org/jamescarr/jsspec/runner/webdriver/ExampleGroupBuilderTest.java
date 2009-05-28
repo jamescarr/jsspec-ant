@@ -1,6 +1,7 @@
 package org.jamescarr.jsspec.runner.webdriver;
 
 import static org.jamescarr.jsspec.runner.helpers.JsSpecHelpers.using;
+import static org.jamescarr.jsspec.runner.helpers.JsSpecHelpers.webElements;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -8,7 +9,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -81,17 +81,6 @@ public class ExampleGroupBuilderTest {
 		
 		ExampleGroup group = builder.generate(el);
 		
-		assertEquals(5, group.getExamples().size());
-	}
-
-	private List<WebElement> webElements(String nodeName, String clazz, int numberToCreate) {
-		ArrayList<WebElement> elements = new ArrayList<WebElement>();
-		for(int i = 0; i < numberToCreate; i++){
-			WebElement el = mock(WebElement.class);
-			when(el.getAttribute("class")).thenReturn(clazz);
-			when(el.getElementName()).thenReturn(nodeName);
-			elements.add(el);
-		}
-		return elements;
+		assertEquals(elements.size(), group.getExamples().size());
 	}
 }

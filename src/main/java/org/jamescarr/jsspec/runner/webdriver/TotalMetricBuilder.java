@@ -7,25 +7,34 @@ import java.util.Map.Entry;
 import org.apache.commons.beanutils.BeanUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class TotalMetricBuilder implements ResultExtractor<JSSpecResult> {
-	private final static Map<String, String> metrics = new LinkedHashMap<String, String>(){
-		private static final long serialVersionUID = 1L;
-
-		{
-			put("total_examples", "examples");
-			put("total_failures", "failures");
-			put("total_errors", "errors");
-			put("progress", "progress");
-			put("total_elapsed", "elapsed");
-		}
+	private final static Map<String, String> metrics = new LinkedHashMap<String, String>();
+	static{
+			metrics.put("total_examples", "examples");
+			metrics.put("total_failures", "failures");
+			metrics.put("total_errors", "errors");
+			metrics.put("progress", "progress");
+			metrics.put("total_elapsed", "elapsed");
 	};
+	
+	private final ExampleGroupBuilder groupBuilder;
+	
+	public TotalMetricBuilder(ExampleGroupBuilder groupBuilder) {
+		this.groupBuilder = groupBuilder;
+		
+	}
 	public JSSpecResult generate(WebDriver driver) {
 		JSSpecResult result = new JSSpecResult();
 		
 		for(Entry<String, String> entry : metrics.entrySet()){
 			String value = driver.findElement(By.id(entry.getKey())).getText();
 			assignValueToField(result, entry, value);
+		}
+		
+		for(WebElement el : driver.findElements(By.xpath("//ul[@class='specs']/li"))){
+			result.add(groupBuilder.generate(el));
 		}
 		
 		return result;

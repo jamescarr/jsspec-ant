@@ -1,10 +1,23 @@
 package org.jamescarr.jsspec.runner.webdriver;
 
-public class JSSpecResult {
+import java.util.ArrayList;
+import java.util.List;
 
+public class JSSpecResult {
 	private int examples;
 	private int failures;
-	private int errors;
+	private int errors;	
+	private int progress;
+	private float elapsed;
+	private List<ExampleGroup> exampleGroups= new ArrayList<ExampleGroup>();
+
+	public List<ExampleGroup> getExampleGroups() {
+		return exampleGroups;
+	}
+
+	public void add(ExampleGroup exampleGroup) {
+		this.exampleGroups.add(exampleGroup);
+	}
 
 	public int getErrors() {
 		return errors;
@@ -29,9 +42,6 @@ public class JSSpecResult {
 	public void setElapsed(float elapsed) {
 		this.elapsed = elapsed;
 	}
-
-	private int progress;
-	private float elapsed;
 	
 	public int getFailures() {
 		return failures;
