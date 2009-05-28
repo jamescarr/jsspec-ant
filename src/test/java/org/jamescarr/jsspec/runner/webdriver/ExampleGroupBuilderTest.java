@@ -20,24 +20,38 @@ import static org.mockito.Mockito.*;
 
 public class ExampleGroupBuilderTest {
 	private WebElement el;
-	private ExampleBuilder builder = new ExampleBuilder();
+	private ExampleGroupBuilder builder = new ExampleGroupBuilder();
 	@Before
 	public void before(){
 		this.el = mock(WebElement.class);
 		using(el).tag("h3").returnsText("default");
+		when(el.getAttribute("class")).thenReturn("exception");
 	}
 
 	@Test
 	public void shouldGetNameFromH3Element(){
 		using(el).tag("h3").returnsText("Example Group Description");
 		
-		ExampleGroup group = new ExampleGroupBuilder().generate(el);
+		ExampleGroup group = builder.generate(el);
 		
 		assertEquals("Example Group Description",group.getTitle());
 	}
 	
 	@Test
 	public void shouldSetGroupPassToTrueIfClassIsSuccess(){
+		when(el.getAttribute("class")).thenReturn("success");
 		
+		ExampleGroup group = builder.generate(el);
+		
+		assertTrue(group.isPassing());
+	}
+	
+	@Test
+	public void shouldSetGroupPassToFalseIfClassIsFailure(){
+		when(el.getAttribute("class")).thenReturn("exception");
+		
+		ExampleGroup group = builder.generate(el);
+		
+		assertFalse(group.isPassing());
 	}
 }

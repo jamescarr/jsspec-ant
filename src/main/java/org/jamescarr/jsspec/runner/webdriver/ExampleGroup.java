@@ -5,6 +5,13 @@ import java.util.List;
 
 public class ExampleGroup {
 	private String title;
+	private boolean passing;
+	public boolean isPassing() {
+		return passing;
+	}
+	public void setPassing(boolean passing) {
+		this.passing = passing;
+	}
 	private List<Example> examples = new ArrayList<Example>();
 	
 	public String getTitle() {
