@@ -1,20 +1,24 @@
 package org.jamescarr.jsspec.runner.webdriver;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.File;
+import java.net.MalformedURLException;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriver.Navigation;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-
-
-
-import static org.mockito.Mockito.*;
+import static org.jamescarr.jsspec.runner.helpers.JsSpecHelpers.localSpec;
 
 public class SpecRunnerTest {
 	private WebDriver driver;
 	private SpecRunner runner;
+	
 	@Before
 	public void before(){
 		driver = mock(WebDriver.class);
@@ -29,9 +33,5 @@ public class SpecRunnerTest {
 		
 		verify(driver.navigate()).to("file:///C|/foo/somefile.html");
 	}
-	@Test
-	public void shouldCollectExecutionMetrics(){
-		runner = new SpecRunner(new HtmlUnitDriver(true));
-		JSSpectResult result = runner.execute("http://jania.pe.kr/jsspec/demo.html");
-	}
+	
 }
